@@ -1,0 +1,27 @@
+[project]
+name = "repopilot"
+version = "0.1.0"
+description = "RepoPilot coding agent project: Day 1 bootstrap skeleton"
+readme = "README.md"
+authors = [
+    { name = "EternitySakura", email = "96830806+EternitySakura@users.noreply.github.com" }
+]
+requires-python = ">=3.11"
+dependencies = [
+    "pydantic>=2.13.5",
+    "pydantic-settings>=2.15.0",
+]
+
+[build-system]
+requires = ["uv_build>=0.12.18,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+    "ruff>=0.16.9",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+norecursedirs = ["fixtures", ".venv"]
