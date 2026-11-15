@@ -1,0 +1,26 @@
+# Python / uv
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Test / lint caches
+.pytest_cache/
+.ruff_cache/
+.uv-cache/
+.coverage
+htmlcov/
+
+# Local secrets: the template is intentionally tracked
+.env
+.env.*
+!.env.example
+
+# Build outputs
+dist/
+build/
+
+# Future execution outputs
+artifacts/
+runs/
+*.log

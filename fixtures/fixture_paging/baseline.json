@@ -1,0 +1,12 @@
+{
+  "sha256": "ddd2a49d5d4b232b7f89f64da51d992c2d6fca27c162f9b282077d6a65226bd1",
+  "files": {
+    "Dockerfile": "f33fbb01d59b81709ead3ec89b3fb192e43feba3934417e70ddeda994685ea50",
+    "pyproject.toml": "7ba12341a450bb6a877e1525f8d4ed059de1db79b061ec02344a019ab85087a8",
+    "requirements-test.txt": "476ab15e2946e9b58c0cf4dd21f6963469c4adc65a4043270bdcd5d3b0e1ec1f",
+    "src/fixture_paging/__init__.py": "6a0bd1f918016d0a0095a915aab406993e1b3f01352086c9db06b450651e3fd1",
+    "src/fixture_paging/cursor.py": "62edf493b35af5beb70e8009985bd7bff5d685d68388483eb875b6e041b33564",
+    "src/fixture_paging/page.py": "57bee5f8440d9cbfcc3a146581df950b7d036554f98d6c46ee8712eba5bb90a6",
+    "tests/test_page.py": "c65ee6c76f9bb8e64287256992ca634c72d271f6fb56a9dbda2b610987814075"
+  }
+}

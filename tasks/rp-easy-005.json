@@ -1,0 +1,12 @@
+{
+  "task_id": "rp-easy-005",
+  "repo_profile": "fixture_paths",
+  "base_revision": "7d12c7fc275310dd7986e408c4d7b00cc77295535691326e82558df821993025",
+  "description": "suffix 接收文件基本名，返回最后一个扩展名且不含点；单独的点文件名如 .profile 没有扩展名。",
+  "editable_globs": [
+    "src/fixture_paths/*.py"
+  ],
+  "public_test_profile": "fixture_paths_target",
+  "verifier_profile": "fixture_paths_gate_a",
+  "budget_profile": "local_mvp"
+}

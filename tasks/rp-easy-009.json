@@ -1,0 +1,12 @@
+{
+  "task_id": "rp-easy-009",
+  "repo_profile": "fixture_records",
+  "base_revision": "5bd2dd2e238f669c7a93703852b7dceadcd214e5b56b2449ddf4f87c0803432a",
+  "description": "parse_pair 只在第一个等号处分隔，保留值中的等号并去除两侧空白；保留空值与缺少等号时的 ValueError。",
+  "editable_globs": [
+    "src/fixture_records/*.py"
+  ],
+  "public_test_profile": "fixture_records_target",
+  "verifier_profile": "fixture_records_gate_a",
+  "budget_profile": "local_mvp"
+}

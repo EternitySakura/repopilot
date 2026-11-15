@@ -1,0 +1,12 @@
+{
+  "task_id": "rp-easy-006",
+  "repo_profile": "fixture_ranges",
+  "base_revision": "16e737b9ca81ab049e3ae3fba5e2c245a9d19fe702667640084beaf0e56a23dc",
+  "description": "covers 应接受反向区间并包含两个端点；归一化逻辑在 endpoints.py，成员判断在 span.py，两者均需保持公开契约。",
+  "editable_globs": [
+    "src/fixture_ranges/*.py"
+  ],
+  "public_test_profile": "fixture_ranges_target",
+  "verifier_profile": "fixture_ranges_gate_a",
+  "budget_profile": "local_mvp"
+}

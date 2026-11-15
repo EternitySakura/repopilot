@@ -1,0 +1,12 @@
+{
+  "task_id": "rp-easy-003",
+  "repo_profile": "fixture_mapping",
+  "base_revision": "2cafd916da896181bf262cde53a0588c1e1ad4c23980cab99b983139b9dd0b35",
+  "description": "lookup 只在键不存在时使用默认值；保留已存在的 0、False、空字符串和 None。",
+  "editable_globs": [
+    "src/fixture_mapping/*.py"
+  ],
+  "public_test_profile": "fixture_mapping_target",
+  "verifier_profile": "fixture_mapping_gate_a",
+  "budget_profile": "local_mvp"
+}

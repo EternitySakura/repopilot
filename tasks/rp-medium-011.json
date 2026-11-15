@@ -1,0 +1,13 @@
+{
+  "task_id": "rp-medium-011",
+  "repo_profile": "fixture_paging",
+  "base_revision": "ddd2a49d5d4b232b7f89f64da51d992c2d6fca27c162f9b282077d6a65226bd1",
+  "description": "paginate 从非负 offset 按原顺序返回最多 limit 个条目和下一页偏移，仅在后面还有条目时返回偏移。刚好到尾部、空输入或越过末尾时下一页为 None。保留非法参数的 ValueError，不修改输入。分页范围和续页判断分别位于 page.py 和 cursor.py。",
+  "editable_globs": [
+    "src/fixture_paging/page.py",
+    "src/fixture_paging/cursor.py"
+  ],
+  "public_test_profile": "fixture_paging_target",
+  "verifier_profile": "fixture_paging_gate_a",
+  "budget_profile": "local_mvp"
+}

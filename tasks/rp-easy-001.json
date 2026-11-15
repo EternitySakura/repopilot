@@ -1,0 +1,12 @@
+{
+  "task_id": "rp-easy-001",
+  "repo_profile": "fixture_text",
+  "base_revision": "02c05e04652b8029da279e6f6de9f5ee1055e931151215fe80b408ab509f9f57",
+  "description": "parse_words 空输入应返回空列表，当前触发 IndexError；保留逗号拆分与空白过滤行为。",
+  "editable_globs": [
+    "src/fixture_text/*.py"
+  ],
+  "public_test_profile": "target",
+  "verifier_profile": "fixture_text_gate_a",
+  "budget_profile": "local_mvp"
+}

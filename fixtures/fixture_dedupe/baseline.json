@@ -1,0 +1,11 @@
+{
+  "sha256": "d5c3b7324a6f01734cabacbe586543797bb389f61c8c49816d81b5f27dac3abf",
+  "files": {
+    "Dockerfile": "f33fbb01d59b81709ead3ec89b3fb192e43feba3934417e70ddeda994685ea50",
+    "pyproject.toml": "2fc86406ce7bd7d8881e412a6781d999c2fc1c19be0db1b873684005bc92e230",
+    "requirements-test.txt": "476ab15e2946e9b58c0cf4dd21f6963469c4adc65a4043270bdcd5d3b0e1ec1f",
+    "src/fixture_dedupe/__init__.py": "04f5a11a0f30d7c4037f79d361c8edbcad8ad08bb33a4d711f834a47cf55a1dd",
+    "src/fixture_dedupe/unique.py": "abf470c1e3bfa49eef2c0c757b654fb1ba7961556a1b62329896763b25ba7491",
+    "tests/test_unique.py": "586f0403e066495cb1940d5a36b691a03bf6172f9418d2b6016053d9bedc6d7a"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "task_id": "rp-easy-007",
+  "repo_profile": "fixture_greeting",
+  "base_revision": "12090585a746c54c2534b0dfc9a170081bccf1606a73ff9ba944d2383d893adc",
+  "description": "新增 fixture_greeting.formatting.normalize_name 并由 greet 调用：去除名字两侧空白，空白名字使用 Guest，保留普通及 Unicode 名字。",
+  "editable_globs": [
+    "src/fixture_greeting/*.py"
+  ],
+  "public_test_profile": "fixture_greeting_target",
+  "verifier_profile": "fixture_greeting_gate_a",
+  "budget_profile": "local_mvp"
+}

@@ -1,0 +1,12 @@
+{
+  "task_id": "rp-easy-002",
+  "repo_profile": "fixture_numbers",
+  "base_revision": "6901c1fd7ad8dba7c81a29a5682c4e9a507a5ab626dd293497ee2522e96451cd",
+  "description": "clamp 必须同时遵守包含端点的上下界，保留非法区间抛出 ValueError 的行为。",
+  "editable_globs": [
+    "src/fixture_numbers/*.py"
+  ],
+  "public_test_profile": "fixture_numbers_target",
+  "verifier_profile": "fixture_numbers_gate_a",
+  "budget_profile": "local_mvp"
+}

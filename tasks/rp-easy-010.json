@@ -1,0 +1,12 @@
+{
+  "task_id": "rp-easy-010",
+  "repo_profile": "fixture_dedupe",
+  "base_revision": "d5c3b7324a6f01734cabacbe586543797bb389f61c8c49816d81b5f27dac3abf",
+  "description": "unique 按相等关系去重并保留第一次出现的顺序；支持列表、字典等不可哈希元素，不修改输入。",
+  "editable_globs": [
+    "src/fixture_dedupe/*.py"
+  ],
+  "public_test_profile": "fixture_dedupe_target",
+  "verifier_profile": "fixture_dedupe_gate_a",
+  "budget_profile": "local_mvp"
+}

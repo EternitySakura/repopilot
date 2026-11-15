@@ -1,0 +1,12 @@
+{
+  "task_id": "rp-easy-004",
+  "repo_profile": "fixture_sequence",
+  "base_revision": "36a8191c0006cb8b750a3d63e29903ddc7d1df7568b14930758411d1a6fee392",
+  "description": "chunks 必须保留不足 size 的末尾分块；空输入返回空列表，非正 size 继续抛出 ValueError。",
+  "editable_globs": [
+    "src/fixture_sequence/*.py"
+  ],
+  "public_test_profile": "fixture_sequence_target",
+  "verifier_profile": "fixture_sequence_gate_a",
+  "budget_profile": "local_mvp"
+}

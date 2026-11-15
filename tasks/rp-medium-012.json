@@ -1,0 +1,12 @@
+{
+  "task_id": "rp-medium-012",
+  "repo_profile": "fixture_schedule",
+  "base_revision": "45090f610c35ce11454df1cbbbd328b31ac65c78a1d1e056781a4b336c19e22d",
+  "description": "merge_windows 合并重叠或相邻的半开时间段，按开始时间输出，嵌套时间段不能缩短已有覆盖范围。保留 validation.py 对空段的过滤及对反向段的 ValueError，不修改输入。只修改 windows.py。",
+  "editable_globs": [
+    "src/fixture_schedule/windows.py"
+  ],
+  "public_test_profile": "fixture_schedule_target",
+  "verifier_profile": "fixture_schedule_gate_a",
+  "budget_profile": "local_mvp"
+}

@@ -1,0 +1,11 @@
+{
+  "sha256": "6901c1fd7ad8dba7c81a29a5682c4e9a507a5ab626dd293497ee2522e96451cd",
+  "files": {
+    "Dockerfile": "f33fbb01d59b81709ead3ec89b3fb192e43feba3934417e70ddeda994685ea50",
+    "pyproject.toml": "d26f2b225d3302b6c0607b68143e80890becbbcf0497ac7f75d5acbc35807099",
+    "requirements-test.txt": "476ab15e2946e9b58c0cf4dd21f6963469c4adc65a4043270bdcd5d3b0e1ec1f",
+    "src/fixture_numbers/__init__.py": "f45be53594284abd2bbdc42e0a3b59d6a377b346ee8c974b1a573e64be518696",
+    "src/fixture_numbers/clamp.py": "d3f69a20711dce997dfb58cc51b1aab88db0314d4935bc13d25f49f46d14609c",
+    "tests/test_clamp.py": "a511b283195d4392fa388978ec164312d454ab23502912256920ad94f9e67ed7"
+  }
+}

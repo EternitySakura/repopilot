@@ -1,0 +1,11 @@
+{
+  "sha256": "36a8191c0006cb8b750a3d63e29903ddc7d1df7568b14930758411d1a6fee392",
+  "files": {
+    "Dockerfile": "f33fbb01d59b81709ead3ec89b3fb192e43feba3934417e70ddeda994685ea50",
+    "pyproject.toml": "2aaa879698957d781aaec6af495b5921aa5a10c1d19b8ed64f41001b78c02c48",
+    "requirements-test.txt": "476ab15e2946e9b58c0cf4dd21f6963469c4adc65a4043270bdcd5d3b0e1ec1f",
+    "src/fixture_sequence/__init__.py": "0d616c157f1f3f835dd5eab5141627a66431c137c78b6154b69c595d1400ce62",
+    "src/fixture_sequence/chunks.py": "c32bfe53a3e71d6153636803b501926946018e12e8f8de956c10bd4c0cd33e2f",
+    "tests/test_chunks.py": "09c78b8e4df192aec5dfd19ff31020aab7c9ecf1faefa77ffaf7db7e4de0c046"
+  }
+}

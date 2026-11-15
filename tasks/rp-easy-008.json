@@ -1,0 +1,12 @@
+{
+  "task_id": "rp-easy-008",
+  "repo_profile": "fixture_order",
+  "base_revision": "8cbfc555af1eeaeaac61ec8761ca86ab45036b64364c180f70ff9d87ed578b33",
+  "description": "total 应通过只读 catalog.unit_price 查询价格，并乘以每个条目的数量；保留空订单与未知条目的既有行为。",
+  "editable_globs": [
+    "src/fixture_order/order.py"
+  ],
+  "public_test_profile": "fixture_order_target",
+  "verifier_profile": "fixture_order_gate_a",
+  "budget_profile": "local_mvp"
+}

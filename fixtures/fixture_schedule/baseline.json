@@ -1,0 +1,12 @@
+{
+  "sha256": "45090f610c35ce11454df1cbbbd328b31ac65c78a1d1e056781a4b336c19e22d",
+  "files": {
+    "Dockerfile": "f33fbb01d59b81709ead3ec89b3fb192e43feba3934417e70ddeda994685ea50",
+    "pyproject.toml": "077a9935910bb1fe5763d9bb048a04ee291a2c80ddbbb0b4727dd7cf71d6d1fe",
+    "requirements-test.txt": "476ab15e2946e9b58c0cf4dd21f6963469c4adc65a4043270bdcd5d3b0e1ec1f",
+    "src/fixture_schedule/__init__.py": "8d8e59f4097aa24eb9418ab4db18afb247e2e1086e7ea55018487bec14d1e07e",
+    "src/fixture_schedule/validation.py": "8e01fbaefd3402da723d78f9532d89d1bf7ecd3288267b02bc9e22447b4a0efe",
+    "src/fixture_schedule/windows.py": "85e833d58056cda0079901a8ee79bb19f9c3ad391cf83df61603ea52d694bb2b",
+    "tests/test_windows.py": "c38c2d602349eea0b588bae1858f6ef2fa5d2568252f5f012676d91849048b3c"
+  }
+}
