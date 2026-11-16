@@ -19,6 +19,7 @@ if __name__ == "__main__":
     parser.add_argument("--bundle", type=Path, required=True, help="Bundle directory or ZIP")
     parser.add_argument("--runs", type=Path)
     parser.add_argument("--verify", action="store_true", help="Run a new independent public container verification")
+    parser.add_argument("--runtime-version", type=int, choices=(2,), help="Migrate a registered public v1 bundle to runtime v2")
     parser.add_argument("--require-source", action="store_true", help="Require a matching source ledger before importing")
     parser.add_argument("--verifications", type=Path)
     args = parser.parse_args()
@@ -29,18 +30,21 @@ if __name__ == "__main__":
         config = LedgerSettings()
         if args.verifications is not None and args.verifications.resolve().is_relative_to(args.bundle.resolve()):
             raise ValueError("Verification output must stay outside the input bundle")
+        runtime_v2 = args.runtime_version == 2
         if args.require_source:
             source_url = (config.source_url or config.url).get_secret_value()
             with closing(Ledger(source_url, read_only=True)) as source:
                 source.check_schema()
-                prepared = prepare_bundle_import(args.bundle, args.runs, source_ledger=source)
+                prepared = prepare_bundle_import(args.bundle, args.runs, source_ledger=source, runtime_v2=runtime_v2)
         else:
-            prepared = prepare_bundle_import(args.bundle, args.runs)
+            prepared = prepare_bundle_import(args.bundle, args.runs, runtime_v2=runtime_v2)
         ledger = Ledger(config.url.get_secret_value())
         ledger.migrate()
         imported = register_bundle_import(ledger, prepared)
         print("Imported run:", imported.run_id)
         print("Report:", imported.directory / "report.md")
+        if runtime_v2:
+            print("Runtime v2 task:", prepared.task.task_id)
         if args.require_source:
             print("Source check: matched selected public Gate A at import")
         if args.verify:
