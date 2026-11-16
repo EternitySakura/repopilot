@@ -225,7 +225,7 @@ class DockerTests:
             available = self.command(["image", "inspect", self.repo_profile.image_id, "--format", "{{.Id}}"])
             if available.returncode:
                 log.write_bytes(available.stderr[:LOG_LIMIT])
-                raise ToolFailure("DOCKER_UNAVAILABLE", "The frozen Day 1 fixture image is unavailable",
+                raise ToolFailure("DOCKER_UNAVAILABLE", f"Registered test image is unavailable: {self.repo_profile.image_id}",
                                   artifact_ref=str(log))
             if available.stdout.decode().strip() != self.repo_profile.image_id:
                 raise ToolFailure("TEST_SETUP_FAILED", "Base image identity mismatch")

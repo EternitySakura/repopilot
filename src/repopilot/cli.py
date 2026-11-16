@@ -13,7 +13,7 @@ from repopilot.agent.execution_demo import run_execution_demo
 from repopilot.agent.feedback_demo import run_feedback_demo
 from repopilot.agent.live import run_live
 from repopilot.agent.patch_demo import run_patch_demo
-from repopilot.agent.repair_demo import run_repair_demo
+from repopilot.agent.repair_demo import REPAIR_TASKS, run_repair_demo
 from repopilot.agent.symbol_demo import run_symbol_demo
 from repopilot.contracts.action import SearchSymbolArgs
 from repopilot.contracts.task import TaskSpec
@@ -23,7 +23,7 @@ from repopilot.repository.profiles import resolve_profiles
 from repopilot.repository.tasks import (
     DEFAULT_TASK_ID,
     TASK_FILES,
-    load_development_task,
+    load_public_task,
     task_summaries,
 )
 from repopilot.settings import LLMSettings, Settings
@@ -35,7 +35,8 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Validate a RepoPilot task contract")
     parser.add_argument("task", type=Path, nargs="?")
     parser.add_argument("--list-tasks", action="store_true", help="List controller-registered public task summaries")
-    parser.add_argument("--task-id", choices=tuple(TASK_FILES), help="Select a registered task for live, verification, lookup or batch demo")
+    parser.add_argument("--runtime-version", type=int, choices=(1, 2), help="Select the runtime version for --list-tasks")
+    parser.add_argument("--task-id", choices=tuple(TASK_FILES), help="Select a registered task for a supported mode")
     parser.add_argument("--fake-demo", action="store_true", help="Run real read-only tools with FakeModel")
     parser.add_argument("--symbol-demo", action="store_true", help="Find a Python definition and read its real source")
     parser.add_argument("--find-symbol", metavar="NAME", help="Find public Python definitions in a registered task")
@@ -74,17 +75,23 @@ def main() -> int:
     if args.pause_after is not None and (not args.live_run or args.pause_after < 1):
         parser.error("--pause-after requires --live-run and a positive cumulative tool count")
     if args.list_tasks:
-        if any(value is not None and value is not False for name, value in vars(args).items() if name != "list_tasks"):
-            parser.error("--list-tasks must be used separately")
-        print(json.dumps(task_summaries(), indent=2, ensure_ascii=False))
+        if any(value is not None and value is not False for name, value in vars(args).items()
+               if name not in {"list_tasks", "runtime_version"}):
+            parser.error("--list-tasks only accepts --runtime-version")
+        print(json.dumps(task_summaries(args.runtime_version or 1), indent=2, ensure_ascii=False))
         return 0
-    if args.task_id is not None and not (args.live_run or args.verify_run is not None or args.db_list or args.find_symbol is not None or args.batch_demo):
-        parser.error("--task-id requires --live-run, --verify-run, --db-list, --find-symbol or --batch-demo")
+    if args.runtime_version is not None:
+        parser.error("--runtime-version requires --list-tasks")
+    if args.task_id is not None and not (args.live_run or args.verify_run is not None or args.db_list
+                                         or args.find_symbol is not None or args.repair_demo or args.batch_demo):
+        parser.error("--task-id requires --live-run, --verify-run, --db-list, --find-symbol, --repair-demo or --batch-demo")
+    if args.repair_demo and args.task_id is not None and args.task_id not in REPAIR_TASKS:
+        parser.error(f"--repair-demo supports {', '.join(REPAIR_TASKS)}")
     if args.batch_demo and args.task_id is not None and args.task_id not in BATCH_TASKS:
-        parser.error("--batch-demo supports rp-easy-006 and rp-easy-007")
+        parser.error(f"--batch-demo supports {', '.join(BATCH_TASKS)}")
     if args.find_symbol is not None and args.task_id is not None:
         try:
-            load_development_task(args.task_id)
+            load_public_task(args.task_id)
         except ToolFailure as exc:
             parser.error(str(exc))
     if args.run_status is not None and not args.db_list:
@@ -173,7 +180,7 @@ def main() -> int:
         if has_demo or args.verify_run is not None or args.task is not None or args.demo_scenario:
             parser.error("--live-run must be separate from task, demo and verification modes")
         try:
-            load_development_task(args.task_id or DEFAULT_TASK_ID)
+            load_public_task(args.task_id or DEFAULT_TASK_ID)
             llm = LLMSettings()
             config = Settings(**{name: value for name, value in {
                 "max_iterations": args.max_iterations if args.max_iterations is not None else llm.max_calls,
@@ -246,7 +253,7 @@ def main() -> int:
         elif args.feedback_demo:
             events, results = run_feedback_demo(settings=config)
         elif args.repair_demo:
-            events, results = run_repair_demo(settings=config)
+            events, results = run_repair_demo(settings=config, task_id=args.task_id or DEFAULT_TASK_ID)
         elif args.patch_demo:
             events, results = run_patch_demo(settings=config)
         elif args.batch_demo:

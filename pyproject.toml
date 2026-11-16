@@ -1,7 +1,7 @@
 [project]
 name = "repopilot"
-version = "0.1.0"
-description = "RepoPilot coding agent project: Day 1 bootstrap skeleton"
+version = "0.2.0rc1"
+description = "Repository coding agent with independently verified patch candidates"
 readme = "README.md"
 authors = [
     { name = "EternitySakura", email = "96830806+EternitySakura@users.noreply.github.com" }

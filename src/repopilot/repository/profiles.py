@@ -140,9 +140,17 @@ DEVELOPMENT_PROFILES = (
                           ("test_adjacent_windows_are_merged", "test_nested_window_does_not_shorten_coverage",
                            "test_disjoint_and_empty_windows", "test_reversed_window_is_invalid"), ("validation.py",)),
 )
-_repos = (FIXTURE_REPO,) + tuple(pair[0] for pair in DEVELOPMENT_PROFILES)
-_tests = (TARGET_TEST,) + tuple(pair[1] for pair in DEVELOPMENT_PROFILES)
-REPO_PROFILES = MappingProxyType({key: profile for profile in _repos for key in (profile.name, f"{profile.name}@1")})
+
+HOLDOUT_PROFILES = ()
+_development_repos = (FIXTURE_REPO,) + tuple(pair[0] for pair in DEVELOPMENT_PROFILES)
+_repos = _development_repos + tuple(pair[0] for pair in HOLDOUT_PROFILES)
+_tests = (TARGET_TEST,) + tuple(pair[1] for pair in (*DEVELOPMENT_PROFILES, *HOLDOUT_PROFILES))
+RUNTIME_V2_IMAGE = "sha256:26581a598d8630859a18a3ee6ee399aaee26f921e84ccd48c765ed975797a04e"
+REPO_PROFILES = MappingProxyType({
+    **{key: profile for profile in _repos for key in (profile.name, f"{profile.name}@1")},
+    **{f"{profile.name}@2": profile.model_copy(update={"version": 2, "image_id": RUNTIME_V2_IMAGE})
+       for profile in _development_repos},
+})
 TEST_PROFILES = MappingProxyType({key: profile for profile in _tests for key in (profile.name, f"{profile.name}@1")})
 VERIFIER_PROFILES = MappingProxyType({key: profile.name for profile in _repos
                                      for key in (f"{profile.name}_gate_a", f"{profile.name}_gate_a@1")})

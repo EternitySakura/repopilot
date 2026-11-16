@@ -5,8 +5,3 @@ src/repopilot/agent/checkpoints.py -text
 src/repopilot/contracts/action.py -text
 src/repopilot/contracts/tool_data.py -text
 src/repopilot/ledger/audit.py -text
-
-# Retain the reviewed archive bytes when Git checks out the source release.
-fixtures/*/baseline.json -text
-tasks/*.json -text
-tests/unit/test_action_contract.py -text

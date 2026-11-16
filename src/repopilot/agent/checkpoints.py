@@ -28,7 +28,7 @@ from repopilot.ledger.store import Ledger, digest, using_ledger
 from repopilot.observability.events import EventLog
 from repopilot.observability.reports import RunTracker
 from repopilot.repository.profiles import resolve_profiles
-from repopilot.repository.tasks import fixture_root, load_development_task, load_task
+from repopilot.repository.tasks import fixture_root, load_public_task, load_task
 from repopilot.settings import LLMSettings, Settings
 from repopilot.tools.edit import Editor
 from repopilot.tools.registry import action_schema, enabled_tools
@@ -114,7 +114,7 @@ def verified_checkpoint(ledger: Ledger, run_id: str):
     raw_events = read_bytes(directory, "events.jsonl").splitlines(keepends=True)
     if digest_bytes(b"".join(raw_events[:data.events_count])) != data.events_sha256:
         raise ValueError("Checkpoint event prefix changed")
-    task = load_development_task(data.task_id)
+    task = load_public_task(data.task_id)
     config = Settings(**data.settings)
     llm = LLMSettings(_env_file=None, api_key=SecretStr("checkpoint-verification-not-a-real-key"), **data.llm)
     names = enabled_tools(can_edit=True, can_test=True, can_diff=True)

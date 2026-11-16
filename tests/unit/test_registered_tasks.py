@@ -13,6 +13,7 @@ from repopilot.observability.events import EventLog
 from repopilot.repository.profiles import resolve_profiles
 from repopilot.repository.tasks import (
     DEVELOPMENT_TASK_IDS,
+    RUNTIME_V2_TASKS,
     TASK_FILES,
     fixture_root,
     load_task,
@@ -24,15 +25,16 @@ from repopilot.workspace import Workspace
 
 
 @pytest.mark.parametrize("identity", tuple(TASK_FILES))
-def test_registered_inputs_are_frozen_and_only_the_selected_task_is_readable(tmp_path, identity):
+def test_registered_inputs_are_frozen_and_only_the_selected_fixture_is_readable(tmp_path, identity):
     task = load_task(identity)
     workspace = Workspace(fixture_root(task), tmp_path / "workspace", task)
     assert set(workspace.original) == set(fixture_hashes(identity))
     assert workspace.policy.read(workspace.profiles.repo.public_tests[0])[0]
     assert "verifier_profile" not in task.agent_view().model_dump()
     for other in TASK_FILES:
-        if other != identity:
-            source = resolve_profiles(load_task(other)).repo.public_sources[0]
+        other_repo = resolve_profiles(load_task(other)).repo
+        if other_repo.fixture_directory != workspace.profiles.repo.fixture_directory:
+            source = other_repo.public_sources[0]
             with pytest.raises(ToolFailure, match="public read scope"):
                 workspace.policy.read(source)
     with tarfile.open(fileobj=io.BytesIO(DockerTests(workspace, tmp_path).context("controller-base"))) as archive:
@@ -111,8 +113,13 @@ def test_cli_lists_public_registrations_and_rejects_ambiguous_selection(monkeypa
     output = capsys.readouterr().out
     assert {row["task_id"] for row in json.loads(output)} == set(DEVELOPMENT_TASK_IDS)
     assert "verifier_profile" not in output
+    monkeypatch.setattr("sys.argv", ["repopilot", "--list-tasks", "--runtime-version", "2"])
+    assert main() == 0
+    rows = json.loads(capsys.readouterr().out)
+    assert {row["task_id"] for row in rows} == set(RUNTIME_V2_TASKS)
+    assert all(row["repo_profile"].endswith("@2") and "verifier_profile" not in row for row in rows)
     for args in (["--task-id", "rp-easy-002"], ["--list-tasks", "--fake-demo"],
-                 ["--live-run", "--task-id", "../escape"]):
+                 ["--live-run", "--task-id", "../escape"], ["--fake-demo", "--runtime-version", "2"]):
         monkeypatch.setattr("sys.argv", ["repopilot", *args])
         with pytest.raises(SystemExit) as error:
             main()

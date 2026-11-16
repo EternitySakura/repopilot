@@ -21,7 +21,7 @@ from repopilot.repository.profiles import resolve_profiles
 from repopilot.repository.tasks import (
     DEFAULT_TASK_ID,
     fixture_root,
-    load_development_task,
+    load_public_task,
 )
 from repopilot.settings import LLMSettings, Settings
 from repopilot.tools.edit import Editor
@@ -46,7 +46,7 @@ def run_live(*, settings: Settings | None = None, llm_settings: LLMSettings | No
         raise ValueError("Comparison runs cannot be paused")
     if pause_after_tools is not None and configured_ledger() is None:
         raise ValueError("Durable pause requires a configured controller ledger")
-    task = load_development_task(task_id)
+    task = load_public_task(task_id)
     return _run_task(task, settings=settings, llm_settings=llm_settings, runs=runs, verifications=verifications,
                      transport=transport, evaluation_context=evaluation_context, cancel_event=cancel_event,
                      pause_after_tools=pause_after_tools, condition=condition)

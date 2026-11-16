@@ -1,4 +1,4 @@
-# RepoPilot v0.1 · 公开源码版
+# RepoPilot v0.2.0rc1 · 公开源码版
 
 此发行包提供 RepoPilot CLI、12 个开发任务的公开 Fixture、补丁和公开 Gate A 验证。Gate A 从原始基线重建候选并执行固定公开测试。留出评测、私有 Gate B 和参考解使用单独的控制端发行物。
 
@@ -8,7 +8,7 @@
 
 ```powershell
 uv sync --locked
-uv run --no-sync repopilot --list-tasks
+uv run --no-sync repopilot --list-tasks --runtime-version 2
 uv run --no-sync repopilot --fake-demo
 ```
 
@@ -16,22 +16,15 @@ uv run --no-sync repopilot --fake-demo
 
 ## 候选与公开验证
 
-将公开验收资料中的 `repopilot-demo-candidate.zip` 放在发行包根目录。核对并展开候选的命令无需模型密钥：
+先按[运行环境 v2](docs/runtime-v2.md)构建固定测试镜像。将发行附件中的 `repopilot-demo-v2-candidate.zip` 放在源码目录。核对、展开和重新验证候选均无需模型密钥：
 
 ```powershell
-uv run --no-sync python scripts/export_candidate.py --check repopilot-demo-candidate.zip
-uv run --no-sync python scripts/export_candidate.py --materialize repopilot-demo-candidate.zip --output artifacts/test-work/review
+uv run --no-sync python scripts/export_candidate.py --check repopilot-demo-v2-candidate.zip
+uv run --no-sync python scripts/export_candidate.py --materialize repopilot-demo-v2-candidate.zip --output artifacts/test-work/review
+uv run --no-sync python scripts/import_candidate.py --bundle repopilot-demo-v2-candidate.zip --verify
 ```
 
-重新验证时需启动 Docker Linux 引擎。Docker Desktop 须启用 containerd 镜像库，并从单独交付的容器归档加载原冻结镜像：
-
-```powershell
-docker image load --input repopilot-fixture-docker-save.tar
-docker image inspect sha256:a5901493e7d36bd81679d2cd7c5e0d1117a7adedf8165194c9e165ca5003224f
-uv run --no-sync python scripts/import_candidate.py --bundle repopilot-demo-candidate.zip --verify
-```
-
-`--verify` 用本机 SQLite 账本保留新的 Gate A 判定。也可运行 `uv run --no-sync python scripts/demo_week1.py`，查看简单修复、错误候选对照和预算停止。
+`--verify` 用本机 SQLite 账本保留新的 Gate A 判定。重新验证 v0.1.0 候选时仍需加载该候选绑定的原 v1 冻结镜像，离线核对旧候选无需 Docker。
 
 公开版与正式评测控制端有不同的源码指纹。正式留出集的 108 槽结果见单独交付的公开验收资料。发行文件清单和 SHA-256 见 `PUBLIC-SOURCE-MANIFEST.json`。
 

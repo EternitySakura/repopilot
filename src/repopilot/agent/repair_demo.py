@@ -12,13 +12,15 @@ from repopilot.repository.tasks import (
     DEFAULT_TASK_ID,
     PROJECT_ROOT,
     fixture_root,
-    load_development_task,
+    load_public_task,
 )
 from repopilot.settings import Settings
 from repopilot.tools.edit import Editor
 from repopilot.tools.policy import ToolFailure
 from repopilot.tools.testing import DockerTests
 from repopilot.workspace import Workspace
+
+REPAIR_TASKS = (DEFAULT_TASK_ID, "rp-runtime-v2-001")
 
 
 class RepairFakeModel:
@@ -44,7 +46,7 @@ class RepairFakeModel:
 def run_repair_demo(runs: Path | None = None, *, settings: Settings | None = None,
                     model: ModelAdapter | None = None, task_id: str = DEFAULT_TASK_ID):
     config = settings if settings is not None else Settings()
-    task = load_development_task(task_id)
+    task = load_public_task(task_id)
     events = EventLog(runs if runs is not None else PROJECT_ROOT / "artifacts" / "runs")
     tracker = RunTracker(events, config, mode="scripted_candidate", task_id=task.task_id)
     workspace = None

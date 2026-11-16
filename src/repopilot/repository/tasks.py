@@ -28,7 +28,14 @@ DEVELOPMENT_TASK_FILES = MappingProxyType({
 HOLDOUT_TASK_FILES = MappingProxyType({})
 DEVELOPMENT_TASK_IDS = tuple(DEVELOPMENT_TASK_FILES)
 HOLDOUT_TASK_IDS = tuple(HOLDOUT_TASK_FILES)
-TASK_FILES = MappingProxyType({**DEVELOPMENT_TASK_FILES, **HOLDOUT_TASK_FILES})
+RUNTIME_V2_TASKS = MappingProxyType({
+    f"rp-runtime-v2-{identity.rsplit('-', 1)[1]}": identity for identity in DEVELOPMENT_TASK_FILES
+})
+TASK_FILES = MappingProxyType({
+    **DEVELOPMENT_TASK_FILES,
+    **HOLDOUT_TASK_FILES,
+    **{identity: DEVELOPMENT_TASK_FILES[original] for identity, original in RUNTIME_V2_TASKS.items()},
+})
 
 
 def load_task(task_id: str = DEFAULT_TASK_ID) -> TaskSpec:
@@ -40,8 +47,12 @@ def load_task(task_id: str = DEFAULT_TASK_ID) -> TaskSpec:
     if path.stat().st_size > 65536:
         raise ToolFailure("TASK_DENIED", "Registered task document exceeds its byte limit")
     task = TaskSpec.model_validate_json(path.read_bytes())
-    if task.task_id != task_id:
+    original = RUNTIME_V2_TASKS.get(task_id, task_id)
+    if task.task_id != original:
         raise ToolFailure("TASK_DENIED", "Task document identity differs from its registration")
+    if original != task_id:
+        repo_name = resolve_profiles(task).repo.name
+        task = task.model_copy(update={"task_id": task_id, "repo_profile": f"{repo_name}@2"})
     resolve_profiles(task)
     return task
 
@@ -56,5 +67,12 @@ def load_development_task(task_id: str = DEFAULT_TASK_ID) -> TaskSpec:
     return load_task(task_id)
 
 
-def task_summaries() -> list[dict]:
-    return [load_development_task(identity).agent_view().model_dump(mode="json") for identity in DEVELOPMENT_TASK_IDS]
+def load_public_task(task_id: str = DEFAULT_TASK_ID) -> TaskSpec:
+    if task_id in HOLDOUT_TASK_FILES:
+        raise ToolFailure("TASK_SPLIT_DENIED", "This entry point requires a public development task")
+    return load_task(task_id)
+
+
+def task_summaries(runtime_version: int = 1) -> list[dict]:
+    task_ids = RUNTIME_V2_TASKS if runtime_version == 2 else DEVELOPMENT_TASK_IDS
+    return [load_public_task(identity).agent_view().model_dump(mode="json") for identity in task_ids]

@@ -2,16 +2,16 @@
 
 from repopilot.agent.repair_demo import run_repair_demo
 
-BATCH_TASKS = ("rp-easy-006", "rp-easy-007")
+BATCH_TASKS = ("rp-easy-006", "rp-easy-007", "rp-runtime-v2-006")
 
 
 class BatchFakeModel:
     def __init__(self, task_id="rp-easy-006", *, partial=False):
         if task_id not in BATCH_TASKS:
             raise ValueError("Batch demo supports the registered two-file and new-module tasks")
-        self.task_id = task_id
+        self.task_id = "rp-easy-006" if task_id == "rp-runtime-v2-006" else task_id
         self.partial = partial
-        self.paths = (["src/fixture_ranges/endpoints.py", "src/fixture_ranges/span.py"] if task_id == "rp-easy-006"
+        self.paths = (["src/fixture_ranges/endpoints.py", "src/fixture_ranges/span.py"] if self.task_id == "rp-easy-006"
                       else ["src/fixture_greeting/greeter.py"])
 
     def decide(self, observations):

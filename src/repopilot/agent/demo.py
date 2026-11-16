@@ -10,7 +10,7 @@ from repopilot.repository.profiles import FIXTURE_REPO, resolve_profiles
 from repopilot.repository.tasks import (
     DEFAULT_TASK_ID,
     fixture_root,
-    load_development_task,
+    load_public_task,
 )
 from repopilot.settings import Settings
 from repopilot.tools.policy import ReadPolicy, ToolFailure
@@ -21,7 +21,7 @@ FIXTURE_ROOT = PROJECT_ROOT / FIXTURE_REPO.fixture_directory
 
 def run_demo(runs: Path | None = None, model: ModelAdapter | None = None, *,
              settings: Settings | None = None, scenario: str = "normal", task_id: str = DEFAULT_TASK_ID):
-    task = load_development_task(task_id)
+    task = load_public_task(task_id)
     config = settings if settings is not None else Settings()
     events = EventLog(runs if runs is not None else PROJECT_ROOT / "artifacts" / "runs")
     tracker = RunTracker(events, config, mode="scripted_readonly", task_id=task_id)
