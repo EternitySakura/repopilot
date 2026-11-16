@@ -1,6 +1,6 @@
 [project]
 name = "repopilot"
-version = "0.2.0rc2"
+version = "0.2.0"
 description = "Repository coding agent with independently verified patch candidates"
 readme = "README.md"
 authors = [

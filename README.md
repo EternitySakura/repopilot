@@ -1,4 +1,4 @@
-# RepoPilot v0.2.0rc2 · 公开源码版
+# RepoPilot v0.2.0 · 公开源码版
 
 此发行包提供 RepoPilot CLI、12 个开发任务的公开 Fixture、补丁和公开 Gate A 验证。Gate A 从原始基线重建候选并执行固定公开测试。留出评测、私有 Gate B 和参考解使用单独的控制端发行物。
 

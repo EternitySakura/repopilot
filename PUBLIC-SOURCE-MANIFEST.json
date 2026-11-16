@@ -35,9 +35,9 @@
     ".github/workflows/ci.yml": "967e029868be303b32108cf8258a26cb0e288dd962fbc37e5eaa07caa3b96f7a",
     ".gitignore": "75dfd74a031de3031be5e75379b84fc33d44661a9986a8e40420727a91673fae",
     ".python-version": "49a506dd32096b010d75205acf3430c9ae6c40351888129499e5a5e487126c93",
-    "CHANGELOG.md": "e6c8e0d1f69c24608b3b99c586bdecdefc6945d516bb14180a05549b604b0ccd",
+    "CHANGELOG.md": "c6627967e1167911fa37a90990ed162de06def231df68cedf70635072c5f0497",
     "LICENSE": "cdd771fba70fbe94c1586faadf3c0f84a2840d3a8e5cef8ad7eb840d91cdd6d3",
-    "README.md": "83b2f8c791b82e499be8a833cb2966c0fa29b5cb246c0a9f2ad1e7970dcf86de",
+    "README.md": "f791ecd2c9a32eb1ac84418c888ee59b99d0a19da24daa5d9e7ce6c360ffd09b",
     "alembic.ini": "01684cac844e96d3e3f053c83fbda2a63418a51934bc96834e08a55381843313",
     "docs/runtime-v2.md": "963857f9e391deed8be8be1e58d09939899ee85083ea93567117ec957d4fe34d",
     "fixtures/fixture_dedupe/Dockerfile": "f33fbb01d59b81709ead3ec89b3fb192e43feba3934417e70ddeda994685ea50",
@@ -128,7 +128,7 @@
     "fixtures/fixture_text/src/fixture_text/__init__.py": "95239922aa282b51fbc1ee362d8f97d5976161b5a3c6f67a75833c666792f205",
     "fixtures/fixture_text/src/fixture_text/parser.py": "1fbc8753772ecee64059742b5f9e9135def97afb72ab9a53d1db2e9864182a8b",
     "fixtures/fixture_text/tests/test_parser.py": "73c8e0c6a85d7da1d37df586adbf3e06c8e45b47033c7e686ac55566da676cca",
-    "pyproject.toml": "88b34e9bce15dda983386490912e0951380757769dd3fb0734314e0245c38d3f",
+    "pyproject.toml": "056e55752b11b51d0ab11d65d9cbedbd7475e633461a4f49d02aac003e54e26a",
     "scripts/demo_week1.py": "b91c4dd01c065f02dcac452f3b04efc24d1f7f574398be6be72273095b8cabdb",
     "scripts/export_candidate.py": "64ef14c4b02dd97e566712af7aaaa679ea5bbdf248133dd99d086be1b52a6dcb",
     "scripts/import_candidate.py": "fec67d22f936cbf19421a411a9810541e546d13b440cb8ebe661e68cc5842e8a",
@@ -231,6 +231,6 @@
     "tests/unit/test_read_tools.py": "18a7c0e05d31494fc13327b6da1984f258e2cdd0525d6187b4eb848012826f9c",
     "tests/unit/test_registered_tasks.py": "c77fa8ce0a75e40ef6a47d2ecd62f6ca64b708d2571fe70f6b1a4afea496f859",
     "tests/unit/test_task_contract.py": "51851573b5d3cc3fce2f466922cbecffe0ea04879edb4e6ac25d058cb2bff834",
-    "uv.lock": "25cd51d950a3f19d74257245aba4bb189c5e680a12ac79b37b56c5781b806572"
+    "uv.lock": "156da86683dde99911f78ecab62c3fd4f49a2f068fbbea09d310ce01dd596a8c"
   }
 }
